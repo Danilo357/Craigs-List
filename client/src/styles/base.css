@@ -57,13 +57,13 @@ code {
 }
 
 .acitem {
-  display: none;
+  /* display: none; */
   outline: none;
   list-style: none;
 }
 
 .no-js {
-  display: none;
+  /* display: none; */
 }
 
 .enter-area {
