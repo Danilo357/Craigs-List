@@ -39,7 +39,7 @@ const getUsers = () => {
 
 const getSubs = () => {
   return dispatch => {
-    axios.get("/users").then(resp => {
+    axios.get("/users/subs").then(resp => {
       dispatch({
         type: GET_SUBS,
         payload: resp.data

@@ -119,3 +119,19 @@ td {
   text-align: center;
   font-size: 16px;
 }
+
+.subs {
+  width: 200px;
+}
+
+.categories {
+  width: 200px;
+  text-align: center;
+}
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  margin: 0;
+}

@@ -1,20 +1,20 @@
 const router = require("express").Router();
 const db = require("../db");
 
-// router.get("/", (req, res, next) => {
-//   const sql = `
-//   SELECT id,name, parent_id,slug FROM categories
-//   WHERE parent_id IS NOT NULL`;
+router.get("/subs", (req, res, next) => {
+  const sql = `
+  SELECT id,name, parent_id,slug FROM categories
+  WHERE parent_id IS NOT NULL`;
 
-//   db.query(sql, (err, results, fields) => {
-//     console.log(err);
-//     res.json(results);
-//   });
-// });
+  db.query(sql, (err, results, fields) => {
+    console.log(err);
+    res.json(results);
+  });
+});
 
 router.get("/", (req, res, next) => {
   const sql = `
-  SELECT id,name, parent_id,slug FROM categories`;
+  SELECT id,name, parent_id,slug FROM categories where parent_id IS NULL`;
 
   db.query(sql, (err, results, fields) => {
     console.log(err);
