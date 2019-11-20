@@ -135,3 +135,59 @@ td {
   padding-left: 20px;
   margin: 0;
 }
+
+.add {
+  padding-top: 30px;
+  font-size: 20px;
+  margin-left: 500px;
+}
+
+.viewPage {
+  color: red;
+  text-align: center;
+  font-size: 30px;
+  border: 1px dashed blue;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: blue;
+  text-align: center;
+  margin: auto;
+}
+
+.button {
+  width: 100px;
+  color: white;
+  font-size: 15px;
+  background: grey;
+  cursor: pointer;
+}
+
+.text {
+  width: 400px;
+  height: 200px;
+  font-size: 15px;
+  background: #eee;
+}
+.name {
+  font-size: 25px;
+}
+
+.postName {
+  width: 200px;
+  height: 30px;
+  background: #eee;
+  font-size: 15px;
+}
+
+.addpost {
+  border: 1px solid black;
+  background: #eee;
+  font-size: 25px;
+  text-align: right;
+  cursor: pointer;
+  color: red;
+}

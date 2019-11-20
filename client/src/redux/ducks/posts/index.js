@@ -34,10 +34,10 @@ function getPosts(slug) {
 
 function getSinglePost(postId) {
   return dispatch => {
-    axios.get("/post/" + postId).then(resp => {
+    axios.get("/posts/single/" + postId).then(resp => {
       dispatch({
         type: GET_SINGLE_POST,
-        payload: resp.data
+        payload: resp.data[0]
       })
     })
   }
@@ -65,4 +65,20 @@ export function usePost(postId) {
   }, [dispatch, postId])
 
   return post
+}
+
+export function useCreatePost() {
+  const create = (slug, name, post) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("/posts", { slug, name, post })
+        .then(resp => {
+          resolve()
+        })
+        .catch(e => {
+          reject()
+        })
+    })
+  }
+  return create
 }

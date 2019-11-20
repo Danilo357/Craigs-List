@@ -29,19 +29,24 @@ router.get("/single/:postId", (req, res, next) => {
 })
 
 router.post("/", (req, res, next) => {
-  const catId = req.body.catId
+  const slug = req.body.slug
   const name = req.body.name
   const post = req.body.post
+  const getsql = `SELECT id FROM categories WHERE slug =?`
   const sql = `
   INSERT INTO posts (name,post,category_id) 
   VALUES (?,?,?)`
 
-  db.query(sql, [name, post, catId], (err, results, fields) => {
-    if (err) {
-      throw new Error("WHOOPS")
-    } else {
-      res.json(results)
-    }
+  db.query(getsql, [slug], (err, results, fields) => {
+    const catId = results[0].id
+
+    db.query(sql, [name, post, catId, slug], (err, results, fields) => {
+      if (err) {
+        throw new Error("WHOOPS")
+      } else {
+        res.json(results)
+      }
+    })
   })
 })
 module.exports = router
