@@ -1,44 +1,47 @@
-const router = require("express").Router();
-const db = require("../db");
+const router = require("express").Router()
+const db = require("../db")
 
-router.get("/posts/:catId", (req, res, next) => {
-  const catId = req.params.catId;
+router.get("/:slug", (req, res, next) => {
+  const slug = req.params.slug
 
   const sql = `
-  SELECT * FROM posts WHERE category_id=?
-  `;
+  SELECT p.* 
+  FROM posts p
+  LEFT JOIN categories c ON p.category_id = c.id
+   WHERE c.slug=?
+  `
 
-  db.query(sql, [catId], (err, results, fields) => {
-    res.json(results);
-  });
-});
+  db.query(sql, [slug], (err, results, fields) => {
+    res.json(results)
+  })
+})
 
-router.get("/post/:postId", (req, res, next) => {
-  const postId = req.params.postId;
+router.get("/single/:postId", (req, res, next) => {
+  const postId = req.params.postId
 
   const sql = `
   SELECT * FROM posts WHERE id=?
-  `;
+  `
 
   db.query(sql, [postId], (err, results, fields) => {
-    res.json(results);
-  });
-});
+    res.json(results)
+  })
+})
 
-router.post("/posts", (req, res, next) => {
-  const catId = req.body.catId;
-  const name = req.body.name;
-  const post = req.body.post;
+router.post("/", (req, res, next) => {
+  const catId = req.body.catId
+  const name = req.body.name
+  const post = req.body.post
   const sql = `
   INSERT INTO posts (name,post,category_id) 
-  VALUES (?,?,?)`;
+  VALUES (?,?,?)`
 
   db.query(sql, [name, post, catId], (err, results, fields) => {
     if (err) {
-      throw new Error("WHOOPS");
+      throw new Error("WHOOPS")
     } else {
-      res.json(results);
+      res.json(results)
     }
-  });
-});
-module.exports = router;
+  })
+})
+module.exports = router

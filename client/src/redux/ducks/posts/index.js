@@ -1,35 +1,35 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
+import { useEffect } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import axios from "axios"
 
-const GET_POST = "posts/GET_POSTS";
-const GET_SINGLE_POST = "posts/GET_SINGLE_POST";
+const GET_POST = "posts/GET_POSTS"
+const GET_SINGLE_POST = "posts/GET_SINGLE_POST"
 
 const initialState = {
   posts: [],
   currentPost: {}
-};
+}
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_POST:
-      return { ...state, posts: action.payload };
+      return { ...state, posts: action.payload }
     case GET_SINGLE_POST:
-      return { ...state, currentPost: action.payload };
+      return { ...state, currentPost: action.payload }
     default:
-      return state;
+      return state
   }
-};
+}
 
-function getPosts(catId) {
+function getPosts(slug) {
   return dispatch => {
-    axios.get("/posts/" + catId).then(resp => {
+    axios.get("/posts/" + slug).then(resp => {
       dispatch({
         type: GET_POST,
         payload: resp.data
-      });
-    });
-  };
+      })
+    })
+  }
 }
 
 function getSinglePost(postId) {
@@ -38,19 +38,31 @@ function getSinglePost(postId) {
       dispatch({
         type: GET_SINGLE_POST,
         payload: resp.data
-      });
-    });
-  };
+      })
+    })
+  }
 }
 
-export function usePosts(categoryId) {
-  const posts = useSelector(appState => appState.postState.posts);
-  const currentPost = useSelector(appState => appState.postState.currentPost);
-  const dispatch = useDispatch();
+export function usePosts(slug) {
+  const posts = useSelector(appState => appState.postState.posts)
+  // const currentPost = useSelector(appState => appState.postState.currentPost)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getPosts(categoryId));
-  }, [dispatch, categoryId]);
+    dispatch(getPosts(slug))
+  }, [dispatch, slug])
 
-  return { posts, currentPost };
+  return posts
+}
+
+export function usePost(postId) {
+  const post = useSelector(appState => appState.postState.currentPost)
+  // const currentPost = useSelector(appState => appState.postState.currentPost)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getSinglePost(postId))
+  }, [dispatch, postId])
+
+  return post
 }
